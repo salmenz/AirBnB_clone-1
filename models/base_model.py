@@ -30,14 +30,27 @@ class BaseModel():
 
     " TO DO "
     def __str__(self):
-        return "[<>] (<>) <>"
+        return "[{}] ({}) {}".format(self.__class__.__name__, self.id,
+                self.__dict__)
 
     " TO DO "
     def save(self):
-        return
+        self.updated_at = datetime.now()
+
     
     " TO DO "
     def to_dict(self):
-        return
-
-
+        my_dict = {}
+        for i in self.__dict__.keys():
+            name = i.split("__")
+            if len(name) > 1:
+                name = i.split("__")[1]
+            else:
+                name = i.split("__")[0]
+            if name in ("updated_at", "created_at"):
+                my_dict[name] = datetime.strftime(self.__dict__[i],
+                        "%Y-%m-%dT%H:%M:%S.%f")
+            else:
+                my_dict[name] = self.__dict__[i]
+        my_dict["__class__"] = self.__class__.__name__
+        return my_dict
