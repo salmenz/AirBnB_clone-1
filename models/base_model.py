@@ -28,17 +28,13 @@ class BaseModel():
     def updated_at(self, value):
         self.__updated_at = value
 
-    " TO DO "
     def __str__(self):
         return "[{}] ({}) {}".format(self.__class__.__name__, self.id,
                 self.__dict__)
 
-    " TO DO "
     def save(self):
         self.updated_at = datetime.now()
 
-    
-    " TO DO "
     def to_dict(self):
         my_dict = {}
         for i in self.__dict__.keys():
