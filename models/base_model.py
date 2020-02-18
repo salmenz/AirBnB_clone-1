@@ -11,19 +11,24 @@ class BaseModel:
     """
     class BaseModel
     """
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
         """
         Constructor of class BaseModel
         """
-        self.id = str(uuid.uuid4())
-        self.created_at = datetime.datetime.now()
-        self.updated_at = datetime.datetime.now()
+        if kwargs:
+            for key, value in kwargs.items():
+                if key != "__class__":
+                    self.__dict__[key] = value
+        if not args:
+            self.id = str(uuid.uuid4())
+            self.created_at = datetime.datetime.now()
+            self.updated_at = datetime.datetime.now()
 
     def __str__(self):
         """
         formats string representation of the BaseModel
         """
-        return "[<{}>] ({}) <self.__dict__>" \
+        return "[{}] ({}) {}" \
             .format(self.__class__.__name__, self.id, self.__dict__)
 
     def save(self):
