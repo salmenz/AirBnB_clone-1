@@ -31,11 +31,16 @@ class FileStorage():
         (__file_path) exists ; otherwise, do nothing. If the file doesn’t 
         exist, no exception should be raised) """
         try:
+            from models.base_model import BaseModel
+            from models.user import User
+            print("HELLO")
             with open(self.__file_path) as file:
-                from models.base_model import BaseModel
                 data = json.loads(file.read())
-                for i in data.values():
-                    obj = BaseModel(**i)
+                print(data)
+                for k, i in data.items():
+                    key = k.split(".")[0]
+                    obj = eval(key)(**i)
+                    print(obj)
                     self.new(obj)
         except Exception:
             pass

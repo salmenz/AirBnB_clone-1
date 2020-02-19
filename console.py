@@ -4,8 +4,9 @@
 import cmd
 import sys
 import inspect
-from models import BaseModel
+from models.base_model import BaseModel
 from models import storage
+from models.user import User
 """ program called console.py that contains the entry point of the command
 interpreter """
 
@@ -85,7 +86,7 @@ class HBNBCommand(cmd.Cmd):
         prints the id. Ex: $ create BaseModel"""
 
         if self.checkClass(arg, "create") is True:
-            new_instance = BaseModel()
+            new_instance = eval(arg)()
             new_instance.save()
             print(new_instance.id)
 
