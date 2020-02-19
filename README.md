@@ -12,5 +12,7 @@
 - How to handle named arguments in a function
 
 Authors
+
 Taieb Chaabini - 1045@holberonschool.com
+
 Salmen Zouari - salmen.zooro@gmail.com
