@@ -27,13 +27,18 @@ class HBNBCommand(cmd.Cmd):
         - If the instance of the class name doesn’t exist for the id,
         print ** no instance found ** (ex: $ show BaseModel 121212)
         """
-        if len(arg) == 0:
+        if len(arg) == 0 and cmdtype not in ("all"):
             print("** class name missing **")
             return False
         try:
+            if cmdtype == "all":
+                if len(arg) == 0:
+                    return "BaseModel"
             arg = arg.split(" ")
             if inspect.isclass(eval(arg[0])) is True:
                 if issubclass(eval(arg[0]), BaseModel) is True:
+                    if cmdtype == "all":
+                        return arg[0]
                     if cmdtype in ("show", "destroy"):
                         if len(arg) <= 1:
                                 print("** instance id missing **")
@@ -80,21 +85,27 @@ class HBNBCommand(cmd.Cmd):
         """Prints the string representation of an instance based on the class
         name and id. Ex: $ show BaseModel 1234-1234-1234."""
         res = self.checkClass(arg, "show")
-        if res is not False:
+        if res not in (False, None):
             print(res)
 
     def do_destroy(self, arg):
         """ Deletes an instance based on the class name and id (save the
         change into the JSON file). Ex: $ destroy BaseModel 1234-1234-1234."""
         res = self.checkClass(arg, "destroy")
-        if res is not False:
+        if res not in (False, None):
             del storage.all()[res]
             storage.save()
 
-    def all(self, arg):
+    def do_all(self, arg):
         """ Prints all string representation of all instances based or not on
         the class name. Ex: $ all BaseModel or $ all."""
-        pass
+        res = self.checkClass(arg, "all")
+        allstr = []
+        if res not in (False, None):
+            for res in storage.all():
+                allstr.append(str(storage.all()[res]))
+            print(allstr)
+
 
 
 if __name__ == "__main__":
