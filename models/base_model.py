@@ -3,7 +3,10 @@ import uuid
 from datetime import datetime
 from models import storage
 
+
 """ BaseModel that defines all common attributes/methods for other classes."""
+
+
 class BaseModel():
     """ BaseModel that defines all
     common attributes/methods for other classes."""
