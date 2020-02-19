@@ -33,10 +33,8 @@ class FileStorage():
         try:
             from models.base_model import BaseModel
             from models.user import User
-            print("HELLO")
             with open(self.__file_path) as file:
                 data = json.loads(file.read())
-                print(data)
                 for k, i in data.items():
                     key = k.split(".")[0]
                     obj = eval(key)(**i)

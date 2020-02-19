@@ -34,7 +34,7 @@ class HBNBCommand(cmd.Cmd):
         try:
             if cmdtype == "all":
                 if len(arg) == 0:
-                    return "BaseModel"
+                    return True
             arg = arg.split(" ")
             if inspect.isclass(eval(arg[0])) is True:
                 if issubclass(eval(arg[0]), BaseModel) is True:
@@ -110,10 +110,15 @@ class HBNBCommand(cmd.Cmd):
         the class name. Ex: $ all BaseModel or $ all."""
         res = self.checkClass(arg, "all")
         allstr = []
-        if res not in (False, None):
-            for res in storage.all():
-                allstr.append(str(storage.all()[res]))
+        if res is True:
+            for i in storage.all():
+                allstr.append(str(storage.all()[i]))
             print(allstr)
+        else:
+            if res not in (False, None):
+                for res in storage.all():
+                    allstr.append(str(storage.all()[res]))
+                print(allstr)
 
     def do_update(self, arg):
         """Usage: update <class name> <id> <attribute name> "<attribute value>"
