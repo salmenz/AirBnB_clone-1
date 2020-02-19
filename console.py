@@ -39,7 +39,7 @@ class HBNBCommand(cmd.Cmd):
                 if issubclass(eval(arg[0]), BaseModel) is True:
                     if cmdtype == "all":
                         return arg[0]
-                    if cmdtype in ("show", "destroy"):
+                    if cmdtype in ("show", "destroy", "update"):
                         if len(arg) <= 1:
                                 print("** instance id missing **")
                                 return False
@@ -49,6 +49,14 @@ class HBNBCommand(cmd.Cmd):
                                 return storage.all()[key]
                             elif cmdtype == "destroy":
                                 return key
+                            elif cmdtype == "update":
+                                if len(arg) <= 2:
+                                    print("** attribute name missing **")
+                                    return False
+                                if len(arg) <= 3:
+                                    print("** value missing **")
+                                    return False
+
                         else:
                             print("** no instance found **")
                             return False
@@ -106,7 +114,15 @@ class HBNBCommand(cmd.Cmd):
                 allstr.append(str(storage.all()[res]))
             print(allstr)
 
-
+    def do_update(self, arg):
+        """Usage: update <class name> <id> <attribute name> "<attribute value>"
+        """
+        res = self.checkClass(arg, "update")
+        if res not in (False, None):
+            arg = arg.split(" ")
+            key = arg[0] + "." + arg[1]
+            setattr(storage.all()[key], arg[2], arg[3].replace("\"", ""))
+            storage.save()
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
