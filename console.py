@@ -4,7 +4,8 @@
 import cmd
 import sys
 import inspect
-from models import BaseModel 
+from models import BaseModel
+from models import storage
 """ program called console.py that contains the entry point of the command
 interpreter """
 
@@ -30,10 +31,27 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
             return False
         try:
-            if inspect.isclass(eval(arg)) is True:
-                if issubclass(eval(arg), BaseModel) is True:
+            arg = arg.split(" ")
+            if inspect.isclass(eval(arg[0])) is True:
+                if issubclass(eval(arg[0]), BaseModel) is True:
+                    if cmdtype in ("show", "destroy"):
+                        if len(arg) <= 1:
+                                print("** instance id missing **")
+                                return False
+                        key = arg[0] + "." + arg[1]
+                        if key in storage.all():
+                            if cmdtype == "show":
+                                return storage.all()[key]
+                            elif cmdtype == "destroy":
+                                return key
+                        else:
+                            print("** no instance found **")
+                            return False
                     return True
-        except Exception:
+            else:
+                raise Exception
+                return False
+        except Exception as e:
             print("** class doesn't exist **")
 
     def emptyline(cmd):
@@ -60,8 +78,24 @@ class HBNBCommand(cmd.Cmd):
     def do_show(self, arg):
         """Prints the string representation of an instance based on the class
         name and id. Ex: $ show BaseModel 1234-1234-1234."""
-        if self.checkClass(arg, "show") is True:
-            pass
+        res = self.checkClass(arg, "show") 
+        if res is not False:
+            print(res)
+
+    def do_destroy(self, arg):
+        """ Deletes an instance based on the class name and id (save the 
+        change into the JSON file). Ex: $ destroy BaseModel 1234-1234-1234.""" 
+        res = self.checkClass(arg, "destroy") 
+        if res is not False:
+            del storage.all()[res]
+            storage.save()
+    
+    def all(self, arg):
+        """ Prints all string representation of all instances based or not on 
+        the class name. Ex: $ all BaseModel or $ all."""
+        pass
+
+
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
