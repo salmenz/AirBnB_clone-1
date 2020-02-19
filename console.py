@@ -4,8 +4,9 @@
 import cmd
 import sys
 import inspect
-from models import BaseModel
+from models.base_model import BaseModel
 from models import storage
+from models.user import User
 """ program called console.py that contains the entry point of the command
 interpreter """
 
@@ -33,7 +34,7 @@ class HBNBCommand(cmd.Cmd):
         try:
             if cmdtype == "all":
                 if len(arg) == 0:
-                    return "BaseModel"
+                    return True
             arg = arg.split(" ")
             if inspect.isclass(eval(arg[0])) is True:
                 if issubclass(eval(arg[0]), BaseModel) is True:
@@ -85,7 +86,7 @@ class HBNBCommand(cmd.Cmd):
         prints the id. Ex: $ create BaseModel"""
 
         if self.checkClass(arg, "create") is True:
-            new_instance = BaseModel()
+            new_instance = eval(arg)()
             new_instance.save()
             print(new_instance.id)
 
@@ -109,10 +110,15 @@ class HBNBCommand(cmd.Cmd):
         the class name. Ex: $ all BaseModel or $ all."""
         res = self.checkClass(arg, "all")
         allstr = []
-        if res not in (False, None):
-            for res in storage.all():
-                allstr.append(str(storage.all()[res]))
+        if res is True:
+            for i in storage.all():
+                allstr.append(str(storage.all()[i]))
             print(allstr)
+        else:
+            if res not in (False, None):
+                for res in storage.all():
+                    allstr.append(str(storage.all()[res]))
+                print(allstr)
 
     def do_update(self, arg):
         """Usage: update <class name> <id> <attribute name> "<attribute value>"
