@@ -18,7 +18,7 @@ class HBNBCommand(cmd.Cmd):
 
     @staticmethod
     def checkClass(arg, cmdtype):
-        """- If the class name is missing, print ** class name missing ** 
+        """- If the class name is missing, print ** class name missing **
         (ex: $ create)
         - If the class name doesn’t exist, print ** class doesn't exist **
         (ex: $ create MyModel)
@@ -66,7 +66,7 @@ class HBNBCommand(cmd.Cmd):
         "Quit command to exit the program"
         print("")
         return True
-    
+
     def do_create(self, arg):
         """Creates a new instance of BaseModel, saves it (to the JSON file) and
         prints the id. Ex: $ create BaseModel"""
@@ -75,26 +75,26 @@ class HBNBCommand(cmd.Cmd):
             new_instance = BaseModel()
             new_instance.save()
             print(new_instance.id)
+
     def do_show(self, arg):
         """Prints the string representation of an instance based on the class
         name and id. Ex: $ show BaseModel 1234-1234-1234."""
-        res = self.checkClass(arg, "show") 
+        res = self.checkClass(arg, "show")
         if res is not False:
             print(res)
 
     def do_destroy(self, arg):
-        """ Deletes an instance based on the class name and id (save the 
-        change into the JSON file). Ex: $ destroy BaseModel 1234-1234-1234.""" 
-        res = self.checkClass(arg, "destroy") 
+        """ Deletes an instance based on the class name and id (save the
+        change into the JSON file). Ex: $ destroy BaseModel 1234-1234-1234."""
+        res = self.checkClass(arg, "destroy")
         if res is not False:
             del storage.all()[res]
             storage.save()
-    
+
     def all(self, arg):
-        """ Prints all string representation of all instances based or not on 
+        """ Prints all string representation of all instances based or not on
         the class name. Ex: $ all BaseModel or $ all."""
         pass
-
 
 
 if __name__ == "__main__":
