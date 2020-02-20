@@ -145,15 +145,19 @@ class HBNBCommand(cmd.Cmd):
         try:
             args = args[0].split(".")
             if inspect.isclass(eval(args[0])) is True:
-                method = args[1].split("(")[0]
+                method = args[1].split("(")
                 if args[1] == "all()":
                     self.do_all(args[0])
                     return ""
                 elif args[1] == "count()":
-                    i = 0;
+                    i = 0
                     for args[0] in storage.all():
                         i += 1
                     print(i)
+                    return ""
+                elif method[0] == "show":
+                    arg = args[0] + " " + method[1].split(")")[0]
+                    self.do_show(arg)
                     return ""
         except Exception as e:
             pass
