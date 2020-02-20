@@ -163,8 +163,13 @@ class HBNBCommand(cmd.Cmd):
                     elif method[0] == "destroy":
                         self.do_destroy(arg)
                     elif method[0] == "update":
-                        myargs = myargs.join(".")
-                        print(myargs)
+                        myargs = "".join(myargs)
+                        myargs = myargs.split("(")[1]
+                        myargs = myargs.replace(")", "")
+                        myargs = myargs.replace(",", " ")
+                        arg = args[0] + " " + myargs
+                        arg = arg.replace("\"", "")
+                        self.do_update(arg)
                     return ""
         except Exception as e:
             pass
