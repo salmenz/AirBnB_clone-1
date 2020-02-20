@@ -138,14 +138,22 @@ class HBNBCommand(cmd.Cmd):
     def precmd(self, line):
         """retrieve all instances of a class
         Usage : <class name>.all().
+        retrieve an instance based on its ID:
+        Usage : <class name>.show(<id>).
         """
-        print(line)
         args = line.split(" ")
         try:
             args = args[0].split(".")
             if inspect.isclass(eval(args[0])) is True:
+                method = args[1].split("(")[0]
                 if args[1] == "all()":
                     self.do_all(args[0])
+                    return ""
+                elif args[1] == "count()":
+                    i = 0;
+                    for args[0] in storage.all():
+                        i += 1
+                    print(i)
                     return ""
         except Exception as e:
             pass
