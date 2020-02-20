@@ -41,7 +41,6 @@ class FileStorage():
                 for k, i in data.items():
                     key = k.split(".")[0]
                     obj = eval(key)(**i)
-                    print(obj)
                     self.new(obj)
         except Exception:
             pass
