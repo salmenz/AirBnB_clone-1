@@ -138,8 +138,21 @@ class HBNBCommand(cmd.Cmd):
     def precmd(self, line):
         """retrieve all instances of a class
         Usage : <class name>.all().
+        -------------------------------------------
+        retrieve the number of instances of a class
+        Usage : <class name>.count().
+        -------------------------------------------
         retrieve an instance based on its ID:
         Usage : <class name>.show(<id>).
+        -------------------------------------------
+        destroy an instance based on his ID
+        Usage : <class name>.destroy(<id>).
+        -------------------------------------------
+        update an instance based on his ID
+        Usage : <class name>.update(<id>, <attribute name>, <attribute value>).
+        -------------------------------------------
+        update an instance based on his ID with a dictionary:
+        Usage : <class name>.update(<id>, <dictionary representation>).
         """
         myargs = line.split(" ")
         args = line.split(" ")
@@ -166,6 +179,20 @@ class HBNBCommand(cmd.Cmd):
                         myargs = "".join(myargs)
                         myargs = myargs.split("(")[1]
                         myargs = myargs.replace(")", "")
+                        """ check if arg after id is dict or not """
+                        oid = myargs.split(",", 1)[0].replace("\"", "")
+                        checkDict = myargs.split(",", 1)[1]
+                        try:
+                            checkDict = eval(checkDict)
+                            if type(checkDict) is dict:
+                                for k, v in checkDict.items():
+                                    arg = args[0] + " " + str(oid) + " " + \
+                                            str(k) + " " + str(v)
+                                    self.do_update(arg)
+                                return ""
+                        except Exception as e:
+                            print(e)
+                            pass
                         myargs = myargs.replace(",", " ")
                         arg = args[0] + " " + myargs
                         arg = arg.replace("\"", "")
