@@ -141,6 +141,7 @@ class HBNBCommand(cmd.Cmd):
         retrieve an instance based on its ID:
         Usage : <class name>.show(<id>).
         """
+        myargs = line.split(" ")
         args = line.split(" ")
         try:
             args = args[0].split(".")
@@ -155,9 +156,15 @@ class HBNBCommand(cmd.Cmd):
                         i += 1
                     print(i)
                     return ""
-                elif method[0] == "show":
+                elif method[0] in ("show", "destroy", "update"):
                     arg = args[0] + " " + method[1].split(")")[0]
-                    self.do_show(arg)
+                    if method[0] == "show":
+                        self.do_show(arg)
+                    elif method[0] == "destroy":
+                        self.do_destroy(arg)
+                    elif method[0] == "update":
+                        myargs = myargs.join(".")
+                        print(myargs)
                     return ""
         except Exception as e:
             pass
