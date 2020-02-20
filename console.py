@@ -135,5 +135,19 @@ class HBNBCommand(cmd.Cmd):
             setattr(storage.all()[key], arg[2], arg[3].replace("\"", ""))
             storage.save()
 
+    def precmd(self, line):
+        print(line)
+        args = line.split(" ")
+        try:
+            args = args[0].split(".")
+            if inspect.isclass(eval(args[0])) is True:
+                if args[1] == "all()":
+                    self.do_all(args[0])
+                    return ""
+        except Exception as e:
+            pass
+        return line
+
+
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
