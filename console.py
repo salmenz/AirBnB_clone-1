@@ -136,6 +136,9 @@ class HBNBCommand(cmd.Cmd):
             storage.save()
 
     def precmd(self, line):
+        """retrieve all instances of a class
+        Usage : <class name>.all().
+        """
         print(line)
         args = line.split(" ")
         try:
