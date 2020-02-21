@@ -21,7 +21,7 @@ class TestUser(unittest.TestCase):
         """
         del self.user
 
-    def test_uniqueUUID(self):
+    def test_ID(self):
         """
         Make that the ID is unique
         """
