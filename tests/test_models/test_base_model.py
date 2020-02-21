@@ -82,7 +82,7 @@ class TestBaseModel(unittest.TestCase):
         self.assertEqual(type(model_json['created_at']), str)
         self.assertEqual(type(model_json['updated_at']), str)
 
-    def test_3_save(self):
+    def test_save2(self):
         """Tests the public instance method save()."""
 
         base = BaseModel()
