@@ -81,3 +81,13 @@ class TestBaseModel(unittest.TestCase):
         self.assertTrue(hasattr(model_json, '__class__'))
         self.assertEqual(type(model_json['created_at']), str)
         self.assertEqual(type(model_json['updated_at']), str)
+
+    def test_3_save(self):
+        """Tests the public instance method save()."""
+
+        base = BaseModel()
+        time.sleep(0.5)
+        now = datetime.now()
+        base.save()
+        d = base.updated_at - now
+        self.assertTrue(abs(d.total_seconds()) < 0.01)
