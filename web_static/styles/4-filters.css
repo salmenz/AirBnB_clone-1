@@ -1,0 +1,30 @@
+.container{
+	max-width: 1000px;
+	margin: 30px auto 30px auto;
+}
+
+section.filters{
+	display: flex;
+	background: white;
+	width: 100%;
+	border: 1px solid #DDDDDD;
+	border-radius: 4px;
+	height: 70px;
+	justify-content: flex-end;
+}
+
+section.filters button{
+	font-size: 18px;
+	background: #FF5A5F;
+	color: #FFFFFF;
+	height: 48px;
+	width: 20%;
+	border: 0;
+	border-radius: 4px;
+	align-self: center;
+	margin-right: 30px;
+}
+
+section.filters button:hover{
+	opacity: 0.9;
+}
