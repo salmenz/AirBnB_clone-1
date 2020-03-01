@@ -1,0 +1,150 @@
+section.filters{
+	display: flex;
+	background: white;
+	width: 100%;
+	border: 1px solid #DDDDDD;
+	border-radius: 4px;
+	height: 70px;
+	justify-content: flex-start;
+}
+
+section.filters button{
+	font-size: 18px;
+	background: #FF5A5F;
+	color: #FFFFFF;
+	height: 48px;
+	width: 20%;
+	border: 0;
+	border-radius: 4px;
+	align-self: center;
+	margin-right: 30px;
+	margin-left: auto;
+	cursor: pointer;
+}
+
+section.filters button:hover{
+	opacity: 0.9;
+}
+
+section.filters > div{
+	height: 100%;
+	width: 25%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	position: relative;
+}
+
+section.filters > div:nth-child(1){
+	border-right: 1px solid #DDDDDD;
+}
+
+section.filters > div h3{
+	font-weight: 600;
+	margin: 0;
+}
+
+section.filters > div h4{
+	font-weight: 400;
+	font-size: 14px;
+	margin: 0;
+}
+
+section.filters > div > h3, section.filters > div > h4 {
+	padding-left: 45px;
+}
+
+.popover{
+	display: none;
+	position: absolute;
+	/*
+	opacity: 0;
+	pointer-events: none;
+	 */
+	top: 100%;
+	border: 1px solid #DDDDDD;
+	background: #FAFAFA;
+	width: 100%;
+	padding-left: 0;
+	margin: 0;
+	border-radius: 4px;
+	padding-top: 36px;
+	padding-bottom: 40px;
+	margin-left: -1px;
+	z-index: 1;
+}
+
+section.filters > div:hover .popover{
+	display: initial;
+/*	opacity: 1;
+	pointer-events: initial;
+	transition: opacity 500ms ease-in;
+*/
+}
+
+.popover li > h2{
+	font-size: 16px;
+	margin-left: -16px;
+	margin-bottom: 0;
+}
+
+.popover li:first-child h2{
+	margin-top: 0;
+}
+
+.popover li:not(:first-child) h2{
+	margin-top: 30px;
+}
+
+.popover li{
+	padding-left: 45px;
+	list-style: none;
+	line-height: 1.7
+}
+
+@media screen and (max-width: 991px)
+{
+	section.filters{
+		flex-wrap: wrap;
+		height: initial;
+	}
+
+	section.filters > div{
+		width: 100%;
+	}
+	
+	section.filters > div:nth-child(1){
+		border-right: 0;
+	}
+	
+	section.filters > div > h3, section.filters > div > h4{
+		padding-left: 15px;
+	}
+
+	section.filters > div h3{
+		padding-top: 15px;
+	}
+	
+	.popover{
+		top: calc(100% + 15px);
+		padding-top: 15px;
+		padding-bottom: 20px;
+	}
+	
+	section.filters button{
+		width: calc(100% + 2px);
+		margin: 0;
+		margin-left: -1px;
+		margin-right: -1px;
+		margin-top: 15px;
+		border-radius: 0;
+	}
+	
+	.popover li > h2{
+		margin-left: 0;
+	}
+
+	.popover li{
+		padding-left: 15px;
+	}
+}
