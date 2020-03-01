@@ -71,6 +71,7 @@ section.filters > div > h3, section.filters > div > h4 {
 	padding-top: 36px;
 	padding-bottom: 40px;
 	margin-left: -1px;
+	z-index: 1;
 }
 
 section.filters > div:hover .popover{
