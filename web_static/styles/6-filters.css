@@ -55,9 +55,12 @@ section.filters > div > h3, section.filters > div > h4 {
 }
 
 .popover{
-	opacity: 0;
+	display: none;
 	position: absolute;
+	/*
+	opacity: 0;
 	pointer-events: none;
+	 */
 	top: 100%;
 	border: 1px solid #DDDDDD;
 	background: #FAFAFA;
@@ -71,9 +74,11 @@ section.filters > div > h3, section.filters > div > h4 {
 }
 
 section.filters > div:hover .popover{
-	opacity: 1;
+	display: initial;
+/*	opacity: 1;
 	pointer-events: initial;
 	transition: opacity 500ms ease-in;
+*/
 }
 
 .popover li > h2{
